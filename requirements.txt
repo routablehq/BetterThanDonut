@@ -1,2 +1,5 @@
 Django>=3.2,<4
 slack-bolt>=1.7,<2
+pudb==2021.2.2
+ipython==7.30.1
+djangorestframework==3.12.4
