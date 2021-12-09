@@ -1,7 +1,6 @@
 import logging
 import os
 from ohmuffin import models
-import json
 
 from slack_bolt import App
 
