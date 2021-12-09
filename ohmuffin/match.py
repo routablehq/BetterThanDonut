@@ -13,7 +13,7 @@ def dumb_match():
 
     overlap_map = {
         p: sorted([
-            [p2, len(interests[p] & interests[p2]) / len(interests[p2] | interests[p])]
+            [p2, len(interests[p] & interests[p2]) / max(1, len(interests[p2] | interests[p]))]
             for p2 in profiles if p2 != p
         ], key=lambda t: t[1], reverse=True)
         for p in profiles
