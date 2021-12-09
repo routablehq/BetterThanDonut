@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "simple_app.apps.SimpleAppConfig",
-    "oauth_app.apps.OauthAppConfig",
     "ohmuffin.apps.OhmuffinConfig",
     "rest_framework",
 ]

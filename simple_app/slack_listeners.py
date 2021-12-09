@@ -6,8 +6,8 @@ from slack_bolt import App
 logger = logging.getLogger(__name__)
 
 app = App(
-    token="xoxb-2802274197799-2814051712533-UPHFZeT7G2cjvMZJR06tgAwj",
-    signing_secret="cdaf815192ed345c83c5e500fd8edd32",
+    token=os.environ["SLACK_BOT_TOKEN"],
+    signing_secret=os.environ["SLACK_SIGNING_SECRET"],
     # disable eagerly verifying the given SLACK_BOT_TOKEN value
     token_verification_enabled=False,
 )
