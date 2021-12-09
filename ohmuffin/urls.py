@@ -11,4 +11,5 @@ router.register(r'profile', views.ProfileViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     path('', include(router.urls)),
+    path('groups', views.match),
 ]
