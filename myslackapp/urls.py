@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 # Set this flag to False if you want to enable oauth_app instead
 is_simple_app = True
@@ -29,6 +29,7 @@ if is_simple_app:
     urlpatterns = [
         path("admin/", admin.site.urls),
         path("slack/events", slack_events_handler),
+        path("ohmuffin/", include("ohmuffin.urls")),
     ]
 else:
     # OAuth flow supported app

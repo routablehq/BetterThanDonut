@@ -2,40 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edd7b134-18d1-4d33-80ab-42bf9333faaa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/OhMuffin.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myslackapp/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myslackapp/asgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myslackapp/settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myslackapp/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/myslackapp/wsgi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mysql-docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oauth_app/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oauth_app/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oauth_app/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oauth_app/migrations/0002_token_rotation.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oauth_app/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oauth_app/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oauth_app/slack_datastores.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oauth_app/slack_listeners.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oauth_app/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ohmuffin/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ohmuffin/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ohmuffin/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ohmuffin/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ohmuffin/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ohmuffin/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ohmuffin/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simple_app/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simple_app/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simple_app/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simple_app/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simple_app/slack_listeners.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simple_app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ohmuffin/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ohmuffin/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myslackapp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/myslackapp/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myslackapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myslackapp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ohmuffin/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/ohmuffin/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,8 +34,23 @@
       </map>
     </option>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="2218MPK1sWCekafqVHiI9Y75ToI" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -74,8 +62,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ohmuffin" />
     <property name="settings.editor.selected.configurable" value="PyConsoleConfigurable.Django Console" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ohmuffin" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="OhMuffin" type="Python.DjangoServer" factoryName="Django server">
@@ -138,11 +131,23 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1638993685260</updated>
-      <workItem from="1638993688354" duration="2872000" />
+      <workItem from="1638993688354" duration="5158000" />
     </task>
+    <task id="LOCAL-00001" summary="initial commit">
+      <created>1638996760421</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1638996760423</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="initial commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial commit" />
   </component>
 </project>

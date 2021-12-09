@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "simple_app.apps.SimpleAppConfig",
     "oauth_app.apps.OauthAppConfig",
     "ohmuffin.apps.OhmuffinConfig",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
