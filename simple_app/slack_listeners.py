@@ -61,14 +61,14 @@ def send_interest_form(slack_user_id, channel_id):
         },
         "value": str(interest.id)
     } for interest in interests]
-    initial_options = [{
-        "text": {
-            "type": "plain_text",
-            "text": f"{interest.name} ({interest.count} members)",
-            "emoji": True
-        },
-        "value": str(interest.id)
-    } for interest in interests if interest in selected_interests]
+    # initial_options = [{
+    #     "text": {
+    #         "type": "plain_text",
+    #         "text": f"{interest.name} ({interest.count} members)",
+    #         "emoji": True
+    #     },
+    #     "value": str(interest.id)
+    # } for interest in interests if interest in selected_interests]
     interest_section = {
         "type": "section",
         "text": {
@@ -83,7 +83,7 @@ def send_interest_form(slack_user_id, channel_id):
                 "emoji": True
             },
             "options": options,
-            "initial_options": initial_options,
+            # "initial_options": initial_options,
             "action_id": "interest-selection"
         }
     }
