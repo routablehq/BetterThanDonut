@@ -59,18 +59,32 @@ To run this app, all you need to do are:
 You can start your Django application this way:
 
 ```bash
+source env.sh
+# cd ~/routable/OhMuffin/
 python -m venv .venv
 source .venv/bin/activate
 pip install -U pip
 pip install -r requirements.txt
 
-export SLACK_SIGNING_SECRET=(You can find this value at Settings > Basic Information > App Credentials > Signing Secret)
+# Go to https://api.slack.com/apps/ >  Select your app
+# You can find this value at Settings > Basic Information > App Credentials > Signing Secret
+export SLACK_SIGNING_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# Go to https://api.slack.com/apps/ >  Select your app
+# Select "OAuth & Permissions" under "Features"
+# Copy the "Bot User OAuth Token"
+export SLACK_BOT_TOKEN=xoxb-1111111111111-2222222222222-aaaaaaaaaaaaaaaaaaaaaaaa
+# Right click on a slack channel, click "Open channel details", copy "Channel ID" at the bottom of the modal
+export SLACK_MUFFIN_CHANNEL_ID=C12A0B34C5D
+# This is needed to filter out the bot user from the matchings
+# Go to the app, then press on profile icon on the nav bar, copy "Member ID" at the bottom of the modal
+export SLACK_MUFFIN_BOT_ID=UXXXXXXXXXX
 export SLACK_CLIENT_ID=(You can find this value at Settings > Basic Information > App Credentials > Client ID)
 export SLACK_CLIENT_SECRET=(You can find this value at Settings > Basic Information > App Credentials > Client Secret)
 export SLACK_SCOPES=app_mentions:read,chat:write
 
 python manage.py migrate
-python manage.py runserver 0.0.0.0:3000
+# Port 3004 is what the nginx forwards all incoming api traffic
+python manage.py runserver 0.0.0.0:3004
 ```
 
 As you did at [Getting Started Guide](https://slack.dev/bolt-python/tutorial/getting-started), configure ngrok or something similar to serve a public endpoint. Lastly,
