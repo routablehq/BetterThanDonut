@@ -103,3 +103,8 @@ class Profile(BaseModel):
             "id": self.id,
             "slack_id": self.slack_id
         }
+
+
+class Match(BaseModel):
+    profiles = models.ManyToManyField(Profile, related_name="matches")
+    interests = models.ManyToManyField(Interest, related_name="matches")
