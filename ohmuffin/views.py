@@ -1,8 +1,7 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 
-from ohmuffin.match import dumb_match
 from ohmuffin.models import Profile, Interest
 from ohmuffin.serializers import ProfileSerializer, InterestSerializer
 
@@ -28,11 +27,3 @@ class InterestViewSet(viewsets.ModelViewSet):
     queryset = Interest.objects.all().order_by('-created')
     serializer_class = InterestSerializer
     permission_classes = [permissions.AllowAny]
-
-
-def match(request):
-    groups = dumb_match()
-
-    return JsonResponse([
-        {"members": [p.simple_dict() for p in g.members], "interests": [str(i) for i in g.interests]} for g in groups
-    ], safe=False)
