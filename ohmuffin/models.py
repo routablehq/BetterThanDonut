@@ -105,3 +105,10 @@ class Profile(BaseModel):
     # Overrides
 
     # Methods
+
+    def simple_dict(self):
+        return {
+            "name": str(self),
+            "id": self.id,
+            "slack_id": self.slack_id
+        }

@@ -27,4 +27,3 @@ class InterestViewSet(viewsets.ModelViewSet):
     queryset = Interest.objects.all().order_by('-created')
     serializer_class = InterestSerializer
     permission_classes = [permissions.AllowAny]
-
