@@ -43,9 +43,9 @@ def send_interest_form(slack_user_id, channel_id):
     slack_user_profile = app.client.users_info(user=slack_user_id).data["user"]["profile"]
     first_name = slack_user_profile["first_name"]
     last_name = slack_user_profile["last_name"]
-    user = models.Profile.objects.get_or_create(slack_id=slack_user_id, first_name=first_name, last_name=last_name)
-    selected_interests = user.interests.all().annotate(count=Count("interests")).order_by("-count")
-    interests = models.Interest.objects.exclude(id__in=selected_interests).annotate(count=Count("interests")).order_by("-count")
+    user = models.Profile.objects.get_or_create(slack_id=slack_user_id, first_name=first_name, last_name=last_name)[0]
+    selected_interests = user.interests.all()
+    interests = models.Interest.objects.all().annotate(count=Count("interests")).order_by("-count")
     message = {
         "type": "section",
         "text": {
@@ -53,14 +53,6 @@ def send_interest_form(slack_user_id, channel_id):
             "text": "Welcome to the Oh, Muffin"
         }
     }
-    initial_options = [{
-        "text": {
-            "type": "plain_text",
-            "text": f"{interest.name} ({interest.count} members)",
-            "emoji": True
-        },
-        "value": str(interest.id)
-    } for interest in selected_interests]
     options = [{
         "text": {
             "type": "plain_text",
@@ -69,6 +61,14 @@ def send_interest_form(slack_user_id, channel_id):
         },
         "value": str(interest.id)
     } for interest in interests]
+    initial_options = [{
+        "text": {
+            "type": "plain_text",
+            "text": f"{interest.name} ({interest.count} members)",
+            "emoji": True
+        },
+        "value": str(interest.id)
+    } for interest in interests if interest in selected_interests]
     interest_section = {
         "type": "section",
         "text": {
