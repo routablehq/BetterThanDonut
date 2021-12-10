@@ -24,6 +24,13 @@ def initial_join(logger, event):
         send_interest_form(event["user"], channel_id)
 
 
+@app.event("member_left_channel")
+def leave_channel(logger, event):
+    channel_id = event["channel"]
+    if channel_id == os.environ["SLACK_MUFFIN_CHANNEL_ID"]:
+        models.Profile.objects.get(slack_id=event["user"]).delete()
+
+
 @app.command("/update_muffin")
 def update_command(ack, body):
     ack()
@@ -81,3 +88,19 @@ def receive_interests(body, ack, say):
     user.interests.clear()
     user.interests.add(*interest_ids)
 
+
+@app.command("/match")
+def match(ack, respond, command):
+    ack()
+    matches = dumb_match()
+    for match in matches:
+        interests = [str(interest).lower() for interest in match.interests]
+        common_interests = " and ".join([", ".join(interests[:-1]), interests[-1]] if len(interests) > 2 else interests)
+        if common_interests:
+            common_interests = f"Your common interests are {common_interests}."
+        users = [member.slack_id for member in match.members]
+        message = f"You have been selected to meet up according to your interests. Schedule some time to meet up. " \
+                  f"{common_interests}"
+        conversation = app.client.conversations_open(users=users)
+        app.client.chat_postMessage(channel=conversation.data["channel"]["id"], text=message)
+    print("match")
