@@ -29,6 +29,5 @@ if is_simple_app:
     urlpatterns = [
         path("admin/", admin.site.urls),
         path("slack/events", slack_events_handler),
-        path("ohmuffin/", include("ohmuffin.urls")),
     ]
 
