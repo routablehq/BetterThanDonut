@@ -34,5 +34,5 @@ def match(request):
     groups = dumb_match()
 
     return JsonResponse([
-        [p.simple_dict() for p in group] for group in groups
+        {"members": [p.simple_dict() for p in g.members], "interests": [str(i) for i in g.interests]} for g in groups
     ], safe=False)
