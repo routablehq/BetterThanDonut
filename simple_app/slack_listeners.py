@@ -92,7 +92,7 @@ def receive_interests(body, ack, say):
 @app.command("/match")
 def match(ack, respond, command):
     ack()
-    response = app.client.conversations_members(os.environ["SLACK_MUFFIN_CHANNEL_ID"])
+    response = app.client.conversations_members(channel=os.environ["SLACK_MUFFIN_CHANNEL_ID"])
     for member in response["members"]:
         slack_user_profile = app.client.users_info(user=member).data["user"]["profile"]
         models.Profile.objects.get_or_create(slack_id=member, first_name=slack_user_profile["first_name"], last_name=slack_user_profile["last_name"])
