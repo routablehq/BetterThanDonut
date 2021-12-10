@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from ohmuffin.models import Interest, Profile
+from ohmuffin.models import Interest, Profile, Match
 
 
 @admin.register(Interest)
@@ -62,3 +62,11 @@ class ProfileAdmin(admin.ModelAdmin):
     # Custom fields
 
     # Overrides
+
+
+@admin.register(Match)
+class MatchAdmin(admin.ModelAdmin):
+
+    list_display = [
+        lambda m: ", ".join([str(p) for p in m.profiles.all()]) + f" at {m.created}",
+    ]
