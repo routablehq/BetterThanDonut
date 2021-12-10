@@ -1,5 +1,6 @@
 import logging
 import os
+
 from ohmuffin import models
 
 from slack_bolt import App
@@ -50,8 +51,20 @@ def handle_app_mentions(logger, event, say):
                 "emoji": True
             },
             "options": options,
-            "action_id": "multi_static_select-action"
+            "action_id": "interest-selection"
         }
     }
     models.Profile.objects.get_or_create(slack_id=slack_user_id, first_name=first_name, last_name=last_name)
     app.client.chat_postEphemeral(channel=event["channel"], user=slack_user_id, blocks=[message, interest_section])
+
+
+@app.action("interest-selection")
+def receive_interests(body, ack, say):
+    ack()
+    slack_id = body["user"]["id"]
+    user = models.Profile.objects.get(slack_id=slack_id)
+    selected_interests = body['actions'][0]["selected_options"]
+    interest_ids = [interest["value"] for interest in selected_interests]
+    user.interests.clear()
+    user.interests.add(*interest_ids)
+

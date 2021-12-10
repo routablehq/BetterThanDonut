@@ -31,17 +31,4 @@ if is_simple_app:
         path("slack/events", slack_events_handler),
         path("ohmuffin/", include("ohmuffin.urls")),
     ]
-else:
-    # OAuth flow supported app
-    # (prerequisites)
-    # export SLACK_CLIENT_ID=
-    # export SLACK_CLIENT_SECRET=
-    # export SLACK_SIGNING_SECRET=
-    # export SLACK_SCOPES=app_mentions:read
-    from oauth_app.urls import slack_events_handler, slack_oauth_handler
 
-    urlpatterns = [
-        path("slack/events", slack_events_handler, name="handle"),
-        path("slack/install", slack_oauth_handler, name="install"),
-        path("slack/oauth_redirect", slack_oauth_handler, name="oauth_redirect"),
-    ]
