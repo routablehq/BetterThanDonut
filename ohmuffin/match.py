@@ -29,7 +29,6 @@ def dumb_match():
         } for p1 in profiles
     }
 
-    print(match_map)
     overlap_map = {
         p: sorted([
             [p2, overlap_score(p, p2, interests) * pow(0.5, match_map[p][p2]), interests[p] & interests[p2]]
