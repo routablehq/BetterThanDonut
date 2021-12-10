@@ -1,6 +1,8 @@
 import logging
 import os
 
+from django.db.models import Count
+
 from ohmuffin import models
 
 from slack_bolt import App
@@ -39,7 +41,7 @@ def update_command(ack, body):
 
 def send_interest_form(slack_user_id, channel_id):
     slack_user_profile = app.client.users_info(user=slack_user_id).data["user"]["profile"]
-    interests = models.Interest.objects.all()
+    interests = models.Interest.objects.all().annotate(count=Count("interests")).order_by("-count")
     first_name = slack_user_profile["first_name"]
     last_name = slack_user_profile["last_name"]
     message = {
@@ -52,7 +54,7 @@ def send_interest_form(slack_user_id, channel_id):
     options = [{
         "text": {
             "type": "plain_text",
-            "text": interest.name,
+            "text": f"{interest.name} ({interest.count} members)",
             "emoji": True
         },
         "value": str(interest.id)
@@ -103,4 +105,3 @@ def match(ack, respond, command):
                   f"{common_interests}"
         conversation = app.client.conversations_open(users=users)
         app.client.chat_postMessage(channel=conversation.data["channel"]["id"], text=message)
-    print("match")

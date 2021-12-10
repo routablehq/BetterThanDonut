@@ -2,16 +2,7 @@
 
 # Python imports
 import uuid
-from functools import partial
-
-# Pip imports
-from django.conf import settings
-from django.db import models, router
-from django.db.models import QuerySet as DjangoQuerySet
-from django.db.models.base import _has_contribute_to_class
-from django.db.models.deletion import Collector
-from django.db.models.manager import BaseManager as DjangoBaseManager
-from django.utils.translation import ugettext_lazy as _
+from django.db import models
 
 
 # --------------------
