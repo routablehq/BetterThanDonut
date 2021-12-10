@@ -5,6 +5,8 @@ from ohmuffin import models
 
 from slack_bolt import App
 
+from ohmuffin.match import dumb_match
+
 logger = logging.getLogger(__name__)
 
 app = App(
@@ -15,9 +17,20 @@ app = App(
 )
 
 
-@app.event("app_mention")
-def handle_app_mentions(logger, event, say):
-    slack_user_id = event["user"]
+@app.event("member_joined_channel")
+def initial_join(logger, event):
+    channel_id = event["channel"]
+    if channel_id == os.environ["SLACK_MUFFIN_CHANNEL_ID"]:
+        send_interest_form(event["user"], channel_id)
+
+
+@app.command("/update_muffin")
+def update_command(ack, body):
+    ack()
+    send_interest_form(body["user_id"], body["channel_id"])
+
+
+def send_interest_form(slack_user_id, channel_id):
     slack_user_profile = app.client.users_info(user=slack_user_id).data["user"]["profile"]
     interests = models.Interest.objects.all()
     first_name = slack_user_profile["first_name"]
@@ -55,7 +68,7 @@ def handle_app_mentions(logger, event, say):
         }
     }
     models.Profile.objects.get_or_create(slack_id=slack_user_id, first_name=first_name, last_name=last_name)
-    app.client.chat_postEphemeral(channel=event["channel"], user=slack_user_id, blocks=[message, interest_section])
+    app.client.chat_postEphemeral(channel=channel_id, user=slack_user_id, blocks=[message, interest_section])
 
 
 @app.action("interest-selection")
