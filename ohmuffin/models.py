@@ -83,7 +83,7 @@ class Profile(BaseModel):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     slack_id = models.CharField(max_length=200)
-    interests = models.ManyToManyField(Interest, related_name="profiles")
+    interests = models.ManyToManyField(Interest, related_name="interests")
 
     # Nested classes
 

@@ -1,6 +1,8 @@
 import logging
 import os
 
+from ohmuffin import models
+
 from slack_bolt import App
 
 logger = logging.getLogger(__name__)
@@ -15,5 +17,54 @@ app = App(
 
 @app.event("app_mention")
 def handle_app_mentions(logger, event, say):
-    logger.info(event)
-    say(f"Hi there, <@{event['user']}>")
+    slack_user_id = event["user"]
+    slack_user_profile = app.client.users_info(user=slack_user_id).data["user"]["profile"]
+    interests = models.Interest.objects.all()
+    first_name = slack_user_profile["first_name"]
+    last_name = slack_user_profile["last_name"]
+    message = {
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": "Welcome to the Oh, Muffin"
+        }
+    }
+    options = [{
+        "text": {
+            "type": "plain_text",
+            "text": interest.name,
+            "emoji": True
+        },
+        "value": str(interest.id)
+    } for interest in interests]
+    interest_section = {
+        "type": "section",
+        "text": {
+            "type": "mrkdwn",
+            "text": "Please enter your interest so that we can match you with other muffin users."
+        },
+        "accessory": {
+            "type": "multi_static_select",
+            "placeholder": {
+                "type": "plain_text",
+                "text": "Select interests",
+                "emoji": True
+            },
+            "options": options,
+            "action_id": "interest-selection"
+        }
+    }
+    models.Profile.objects.get_or_create(slack_id=slack_user_id, first_name=first_name, last_name=last_name)
+    app.client.chat_postEphemeral(channel=event["channel"], user=slack_user_id, blocks=[message, interest_section])
+
+
+@app.action("interest-selection")
+def receive_interests(body, ack, say):
+    ack()
+    slack_id = body["user"]["id"]
+    user = models.Profile.objects.get(slack_id=slack_id)
+    selected_interests = body['actions'][0]["selected_options"]
+    interest_ids = [interest["value"] for interest in selected_interests]
+    user.interests.clear()
+    user.interests.add(*interest_ids)
+
