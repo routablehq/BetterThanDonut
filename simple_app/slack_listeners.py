@@ -89,11 +89,20 @@ def receive_interests(body, ack, say):
     interest_ids = [interest["value"] for interest in selected_interests]
     user.interests.clear()
     user.interests.add(*interest_ids)
-
+    app.client.chat_postEphemeral(
+        channel=body['channel']['id'],
+        user=slack_id,
+        text="Your interests have been updated!"
+    )
 
 @app.command("/match")
 def match(ack, respond, command):
     ack()
+    response = app.client.conversations_members(channel=os.environ["SLACK_MUFFIN_CHANNEL_ID"])
+    for member in response["members"]:
+        if member != os.environ["SLACK_MUFFIN_BOT_ID"]:
+            slack_user_profile = app.client.users_info(user=member).data["user"]["profile"]
+            models.Profile.objects.get_or_create(slack_id=member, first_name=slack_user_profile["first_name"], last_name=slack_user_profile["last_name"])
     matches = dumb_match()
     for match in matches:
         interests = [str(interest).lower() for interest in match.interests]
