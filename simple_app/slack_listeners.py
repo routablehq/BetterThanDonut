@@ -94,8 +94,9 @@ def match(ack, respond, command):
     ack()
     response = app.client.conversations_members(channel=os.environ["SLACK_MUFFIN_CHANNEL_ID"])
     for member in response["members"]:
-        slack_user_profile = app.client.users_info(user=member).data["user"]["profile"]
-        models.Profile.objects.get_or_create(slack_id=member, first_name=slack_user_profile["first_name"], last_name=slack_user_profile["last_name"])
+        if member != os.environ["SLACK_MUFFIN_BOT_ID"]:
+            slack_user_profile = app.client.users_info(user=member).data["user"]["profile"]
+            models.Profile.objects.get_or_create(slack_id=member, first_name=slack_user_profile["first_name"], last_name=slack_user_profile["last_name"])
     matches = dumb_match()
     for match in matches:
         interests = [str(interest).lower() for interest in match.interests]
