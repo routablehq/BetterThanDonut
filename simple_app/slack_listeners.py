@@ -87,7 +87,11 @@ def receive_interests(body, ack, say):
     interest_ids = [interest["value"] for interest in selected_interests]
     user.interests.clear()
     user.interests.add(*interest_ids)
-
+    app.client.chat_postEphemeral(
+        channel=body['channel']['id'],
+        user=slack_id,
+        text="Your interests have been updated!"
+    )
 
 @app.command("/match")
 def match(ack, respond, command):
